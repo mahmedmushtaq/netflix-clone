@@ -1,21 +1,21 @@
 a:link,a:visited,a:hover,a:active,a{
-    color:black;
     text-decoration: none !important;
 }
 
 /* width */
 
+.a-white:link,.a-white:visited,.a-white:hover,.a-white:active,.a-white{
+    color:white;
+}
 
+.MuiOutlinedInput-root{
+    color:white;
+}
 
 
 
 body{
     font-family: 'Josefin Sans', sans-serif;
     color:white;
-
-
-
-
-
 }
 

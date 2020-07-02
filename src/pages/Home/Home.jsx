@@ -1,63 +1,166 @@
-import React from "react";
-import {Grid,GridList, Typography, Divider, useMediaQuery} from "@material-ui/core";
-import {Header} from "../../components";
-import {makeStyles,useTheme} from "@material-ui/styles";
+import React from 'react';
+import { makeStyles,useTheme } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import {Typography} from "@material-ui/core";
+import {Header, Item} from "../../components";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {useMediaQuery} from "@material-ui/core";
 import language from "../../others/language";
-import {Item} from "../../components";
+import {Link} from "react-router-dom";
+import {tvShowDummyData} from "../dummydata";
 
 
-const useStyles = makeStyles(theme=>({
-     divider:{
-         backgroundColor:'white',height:1,width:180,marginTop:10,marginBottom:30,
-     }
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin:'20px 10px',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+
+        position:'relative'
+
+
+    },
+    gridList: {
+        flexWrap: 'nowrap',
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+        position:'relative',
+
+
+    },
+
+    overlay:{
+        position:'absolute',
+        width:'100%',
+        height:20,
+        bottom:0,
+        backgroundColor:'black',
+
+
+    },
+    next:{
+        position:'absolute',
+        top:'50%',
+        bottom:'50%',
+        right:0,
+        cursor:'pointer',
+    },
+    back:{
+        position:'absolute',
+        top:'50%',
+        bottom:'50%',
+        left:0,
+        cursor:'pointer',
+    },
+    divider:{
+        width:180,
+        height:1,
+        marginTop:10,
+        marginBottom:30,
+        backgroundColor:'white',
+    }
 }));
 
 
-const tvShowDummyData = [
-    {id:1,imgSrc:"https://www.newscase.com/wp-content/uploads/2020/02/Game-of-Thrones-Season-8-1280x720.jpg",title:"Game of thrones season 8"},
-    {id:2,imgSrc:"https://iadsb.tmgrup.com.tr/ac95d4/1200/627/0/144/1000/666?u=https://idsb.tmgrup.com.tr/2020/01/31/1580466098868.jpg",title:"Dirilis Ertugrul Season 5"},
-    {id:3,imgSrc:"https://www.gstatic.com/tv/thumb/tvbanners/18298448/p18298448_b_v8_aa.jpg",title:"Dirty John"},
-    {id:4,imgSrc:"https://i.ytimg.com/sh/pVbNUD8B-lMLaljDXqlMpA/market.jpg",title:"Killing Eve Season 3"},
-    {id:5,imgSrc:"https://www.turkishdrama.com/wp-content/uploads/2019/03/the-circle-halka-tv-series-poster-back.jpg",title:"Halka season 1"},
-    {id:6,imgSrc:"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDu5gYmIl6NnWtRjZl6p8qI7UCGa2nIaI_og&usqp=CAU",title:"Halka season 3"},
-    {id:7,imgSrc:"https://media.millichronicle.com/2020/05/09090602/dirilis_ertugrulun_kadrosuna_3_yeni_isim_1539495081_4167.jpg",title:"Diriliş: Ertuğrul season 2"},
+const Home = props=> {
 
-]
-
-export default props=>{
-    const classes  = useStyles();
+    const classes = useStyles();
+    const ref = React.useRef();
+    const [scrollLimit,setScrollLimit] = React.useState(0);
     const theme = useTheme();
     const sm = useMediaQuery(theme.breakpoints.down("sm"));
+
+
+
+    const rightClick = (id)=>{
+        const parent = document.getElementById(id);
+        parent.scrollTo(parent.scrollLeft+600,0)
+    }
+
+    const leftClick = (id)=>{
+        const parent = document.getElementById(id);
+        parent.scrollTo(parent.scrollLeft-600,0)
+    }
+
     return (
-        <Grid container  direction={"column"} >
-            <Grid item >
-                <Header/>
-            </Grid>
+        <div>
+            <Header/>
 
-           <Grid item container direction={"column"} justify={sm ? "center": "undefined"} alignItems={sm ? "center" : undefined}  style={{width:'95%',margin:'60px auto'}}>
-               <Grid item>
-                   <Typography style={{fontWeight:100,}} variant={"subtitle1"}>{language.tv_shows}</Typography>
-               </Grid>
-               <Divider className={classes.divider}/>
+            <div style={{marginTop:80,}}></div>
 
-               <Grid item container justify={sm ? "center": "undefined"} style={{flexWrap:'nowrap'}} alignItems={sm ? "center" : undefined}>
-
-                   {
-                           tvShowDummyData.map(data=>(
-                               <Item imgSrc={data.imgSrc} title={data.title} key={data.id}/>
-                           ))
-                       }
+             <div style={{margin:'20px'}}>
+                 <Typography component={Link} to={"/tv-shows"} variant={"subtitle1"}>{language.tv_shows}</Typography>
+                 <div className={classes.divider}></div>
+             </div>
 
 
 
-               </Grid>
+            <div className={classes.root}>
+                <GridList ref={ref}  id={"tvShowDiv"}  className={classes.gridList} cols={2.5}>
+                    {tvShowDummyData.map((item,i) => (
 
-               <Grid item container>
-
-               </Grid>
-           </Grid>
+                        <Item   key={item.id} {...item} to={"/series/"+item.slug}/>
 
 
-        </Grid>
-    )
+                    ))}
+                </GridList>
+                <div className={classes.overlay}></div>
+                <div className={classes.next}><NavigateNextIcon onClick={()=>rightClick("tvShowDiv")} style={{fontSize: sm ? 20: 70}}/></div>
+                <div className={classes.back}><ArrowBackIosIcon onClick={()=>leftClick("tvShowDiv")} style={{fontSize: sm? 20: 50}}/></div>
+
+
+            </div>
+
+            <div style={{marginTop:80,}}></div>
+
+            <div style={{margin:'20px'}}>
+                <Typography component={Link} to={'/movies'} variant={"subtitle1"}>{language.movies}</Typography>
+                <div className={classes.divider}></div>
+            </div>
+
+
+            <div className={classes.root}>
+                <GridList id={'moviesDiv'} className={classes.gridList} cols={2.5}>
+                    {tvShowDummyData.map((item) => (
+                        <Item key={item.id} {...item} to={"/play/"+item.slug}/>
+                    ))}
+                </GridList>
+                <div className={classes.overlay}></div>
+                <div className={classes.next}><NavigateNextIcon onClick={()=>rightClick("moviesDiv")} style={{fontSize: sm ? 20: 70}}/></div>
+                <div className={classes.back}><ArrowBackIosIcon onClick={()=>leftClick("moviesDiv")} style={{fontSize: sm? 20: 50}}/></div>
+
+            </div>
+
+
+            <div style={{marginTop:80,}}></div>
+
+            <div style={{margin:'20px'}}>
+                <Typography component={Link} to={"/coming-soon"} variant={"subtitle1"}>{language.comingSoon}</Typography>
+                <div className={classes.divider}></div>
+            </div>
+
+
+            <div className={classes.root}>
+                <GridList id={'comingSoonDiv'} className={classes.gridList} cols={2.5}>
+                    {tvShowDummyData.map((item) => (
+                        <Item key={item.id} {...item} to={"/play/"+item.slug}/>
+                    ))}
+                </GridList>
+                <div className={classes.overlay}></div>
+                <div className={classes.next}><NavigateNextIcon onClick={()=>rightClick("comingSoonDiv")} style={{fontSize: sm ? 20: 70}}/></div>
+                <div className={classes.back}><ArrowBackIosIcon onClick={()=>leftClick("comingSoonDiv")} style={{fontSize: sm? 20: 50}}/></div>
+
+            </div>
+
+
+
+
+        </div>
+    );
 }
+
+export default Home;

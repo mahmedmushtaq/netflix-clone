@@ -8,6 +8,8 @@ import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MovieIcon from '@material-ui/icons/Movie';
 import TimerIcon from '@material-ui/icons/Timer';
 import LanguageIcon from '@material-ui/icons/Language';
+import {Link} from "react-router-dom";
+import clsx from "clsx";
 
 
 
@@ -44,10 +46,10 @@ const useStyles = makeStyles(theme=>({
 }))
 
 const appBarItems = [
-    {title:language.tv_shows, id: "1",icon:<LiveTvIcon style={{color:'white'}}/>},
-    {title:language.movies, id: "2",icon:<MovieIcon style={{color:'white'}}/>},
-    {title:language.comingSoon, id: "3",icon:<TimerIcon style={{color:'white'}}/>},
-    {title:language.languageSupport, id: "4",icon:<LanguageIcon style={{color:'white'}}/>},
+    {title:language.tv_shows, id: "1",icon:<LiveTvIcon style={{color:'white'}}/>,to:'/tv-shows'},
+    {title:language.movies, id: "2",icon:<MovieIcon style={{color:'white'}}/>,to:'/movies'},
+    {title:language.comingSoon, id: "3",icon:<TimerIcon style={{color:'white'}}/>,to:'/coming-soon'},
+    {title:language.languageSupport,onlyIconForLg:true, id: "4",icon:<LanguageIcon style={{color:'white'}}/>,to:''},
 ]
 
 export default props=>{
@@ -66,21 +68,23 @@ export default props=>{
             <Toolbar>
 
 
-                <Typography variant="h5" color={"primary"} style={{fontWeight:800,}} className={classes.title}>
+                <Typography component={Link} to={"/"} variant="h5" color={"primary"} style={{fontWeight:800,}} className={clsx(classes.title)}>
                       NETFLIX
                 </Typography>
                 <Hidden smDown>
 
                 {
                     appBarItems.map(item=>(
-                         <Typography key={item.id} variant={"h6"} className={classes.topbarItem}>{item.title}</Typography>
+                        ! item.onlyIconForLg ?
+                         <Typography key={item.id} variant={"h6"} component={Link} to={item.to} className={clsx(classes.topbarItem,'a-white')}>{item.title}</Typography>
+                            : item.icon
                     ))
                 }
                 </Hidden>
 
 
 
-                <Button color="inherit" variant={"contained"} color={"primary"} className={classes.topbarItem}>Login</Button>
+                <Button color="inherit" component={Link} to={"/login"} variant={"contained"} color={"primary"} className={classes.topbarItem}>{language.login}</Button>
 
 
 
@@ -101,7 +105,7 @@ export default props=>{
                                 {appBarItems.map((item,i) => (
 
 
-                                        <Grid item key={item.id} container alignItems={"center"}  style={{borderBottom: ((i+1) == appBarItems.length) ? undefined :"1px solid white",padding:'0 10px'}}>
+                                        <Grid item key={item.id} container alignItems={"center"} className={'a-white'} component={Link} to={item.to}  style={{borderBottom: ((i+1) == appBarItems.length) ? undefined :"1px solid white",padding:'0 10px'}}>
                                             <Grid item>
                                                 <ListItemIcon>{item.icon}</ListItemIcon>
                                             </Grid>

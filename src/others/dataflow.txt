@@ -1,0 +1,2 @@
+movie->direct play
+series->open all season page
