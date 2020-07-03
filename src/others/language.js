@@ -1,3 +1,3 @@
-import languagesupport from "./languagesupport";
+import languagesupport from "./en";
 
 export default languagesupport;

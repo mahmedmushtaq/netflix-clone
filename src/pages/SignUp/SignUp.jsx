@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid,Typography,Button} from "@material-ui/core";
 import designStyle from "../login/desgin";
-import language from "../../others/languagesupport";
+import language from "../../others/en";
 import {Link} from "react-router-dom";
 
 

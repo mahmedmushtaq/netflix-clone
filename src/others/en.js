@@ -13,6 +13,7 @@ export default {
     require_a_new_one:'Require A New One',
     already_have:"Already Have",
     recover_my_password:'Recover My Password',
-    search_your_favourite_tv_shows:'Search Your Favourite Tv Show\'s And Movies'
+    search_your_favourite_tv_shows:'Search Your Favourite Tv Show\'s And Movies',
+    related_videos:'Related Videos',
 
 }

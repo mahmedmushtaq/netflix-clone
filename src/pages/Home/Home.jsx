@@ -8,7 +8,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useMediaQuery} from "@material-ui/core";
 import language from "../../others/language";
 import {Link} from "react-router-dom";
-import {tvShowDummyData} from "../dummydata";
+import {tvShowDummyData,moviesData,comingSoonData} from "../dummydata";
 
 
 
@@ -103,7 +103,7 @@ const Home = props=> {
                 <GridList ref={ref}  id={"tvShowDiv"}  className={classes.gridList} cols={2.5}>
                     {tvShowDummyData.map((item,i) => (
 
-                        <Item   key={item.id} {...item} to={"/series/"+item.slug}/>
+                        <Item   key={item._id} {...item} to={"/series/"+item.slug}/>
 
 
                     ))}
@@ -125,8 +125,8 @@ const Home = props=> {
 
             <div className={classes.root}>
                 <GridList id={'moviesDiv'} className={classes.gridList} cols={2.5}>
-                    {tvShowDummyData.map((item) => (
-                        <Item key={item.id} {...item} to={"/play/"+item.slug}/>
+                    {moviesData.map((item) => (
+                        <Item key={item._id} {...item} to={"/play/"+item.slug}/>
                     ))}
                 </GridList>
                 <div className={classes.overlay}></div>
@@ -146,8 +146,8 @@ const Home = props=> {
 
             <div className={classes.root}>
                 <GridList id={'comingSoonDiv'} className={classes.gridList} cols={2.5}>
-                    {tvShowDummyData.map((item) => (
-                        <Item key={item.id} {...item} to={"/play/"+item.slug}/>
+                    {comingSoonData.map((item) => (
+                        <Item key={item._id} {...item} to={"/play/"+item.slug}/>
                     ))}
                 </GridList>
                 <div className={classes.overlay}></div>

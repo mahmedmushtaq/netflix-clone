@@ -21,16 +21,19 @@ const useStyles = makeStyles(theme=>({
 export default props=>{
     const classes = useStyles();
     const slug = props.match.params.slug;
+    const [seriesName,setSeriesName] = React.useState('');
 
-    // const loadData = useCallback(async ()=>{
-    //
-    //
-    //
-    // },[]);
-    //
-    // useEffect(()=>{
-    //     loadData()
-    // },[loadData])
+    const loadData = useCallback(async ()=>{
+        // load data from the backed
+        },[]);
+
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
+
+    useEffect(()=>{
+        loadData()
+    },[loadData])
 
     return(
         <Grid container className={classes.root} direction={"column"} justify={"center"} alignItems={"center"}>
@@ -56,8 +59,8 @@ export default props=>{
             <Grid item container justify={"center"}>
                 {
                     tvShowDummyData.map(item=>(
-                        <Grid item key={item.id}>
-                            <Item {...item}/>
+                        <Grid item key={item._id}>
+                            <Item to={'/play/'+item.slug} {...item}/>
                         </Grid>
                     ))
                 }

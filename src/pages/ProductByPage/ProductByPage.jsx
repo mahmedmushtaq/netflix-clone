@@ -50,7 +50,7 @@ export default props=>{
             <Grid item container justify={"center"}>
                 {
                     tvShowDummyData.map(item=>(
-                        <Grid item key={item.id}>
+                        <Grid item key={item._id}>
                             <Item {...item}/>
                         </Grid>
                     ))

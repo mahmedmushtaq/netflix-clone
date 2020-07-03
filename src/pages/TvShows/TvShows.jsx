@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Grid,Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import language from "../../others/language";
@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme=>({
 
 export default props=>{
     const classes = useStyles();
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
+
     return(
         <Grid container className={classes.root} direction={"column"} justify={"center"} alignItems={"center"}>
             <Grid item>
@@ -31,8 +35,8 @@ export default props=>{
             <Grid item container justify={"center"}>
                 {
                     tvShowDummyData.map(item=>(
-                        <Grid item key={item.id}>
-                             <Item {...item}/>
+                        <Grid item key={item._id}>
+                             <Item to={"/series/"+item.slug} {...item}/>
                         </Grid>
                     ))
                 }

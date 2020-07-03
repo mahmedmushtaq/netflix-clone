@@ -37,6 +37,9 @@ const designStyle = makeStyles(theme=>({
             color:'white',
             borderBottom:'1px solid '+theme.palette.primary.main,
         },
+        [theme.breakpoints.down("sm")]:{
+            width:250,
+        }
     },
     gridItem:{
         margin:"10px 0",
