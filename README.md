@@ -1,4 +1,4 @@
-#Beautiful Responsive netflix/streaming React.js material-ui template
+# Beautiful Responsive netflix/streaming React.js material-ui template
 ![](templateimages/1.PNG)
 
 ![](templateimages/2.PNG)
@@ -9,5 +9,5 @@
 ![](templateimages/7.PNG)
 ![](templateimages/8.PNG)
 
-##For Live Demo
+## For Live Demo
 https://netflix-clone-ad.herokuapp.com/
