@@ -2,7 +2,7 @@ import React, {Component, useCallback, useEffect} from 'react'
 import {moviesData,tvShowDummyData,comingSoonData} from "../dummydata";
 import {makeStyles} from "@material-ui/styles";
 import ReactPlayer from 'react-player'
-import {Grid,Typography} from "@material-ui/core";
+import {Grid, Typography, useMediaQuery, useTheme} from "@material-ui/core";
 import {Item} from "../../components";
 import language from "../../others/language";
 
@@ -20,6 +20,8 @@ const  PlayerPage = props=> {
     const [relatedData,setRelatedData] = React.useState('');
     const [playerReady,setReady] = React.useState(false);
     const slug = props.match.params.slug;
+    const theme = useTheme();
+    const xs = useMediaQuery(theme.breakpoints.down("xs"));
     const loadData = useCallback(async()=>{
        //  this is the search in the dummy data if you apply backend then please use search in the database
        const data =  moviesData.find(item=>item.slug === slug);
@@ -62,7 +64,7 @@ const  PlayerPage = props=> {
         return (
            <Grid container direction={"column"} justify={"center"} alignItems={"center"}>
               <Grid item>
-                  <ReactPlayer width={window.innerWidth - 30} onReady={()=>setReady(true)} height={600} url={videoData ? videoData.videoSrc : undefined}
+                  <ReactPlayer width={window.innerWidth - 30} height={ xs ? 300 :600} onReady={()=>setReady(true)}  url={videoData ? videoData.videoSrc : undefined}
                                controls={true}
 
                   />
